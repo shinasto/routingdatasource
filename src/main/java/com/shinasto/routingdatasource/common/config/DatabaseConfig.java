@@ -20,11 +20,6 @@ import javax.sql.DataSource;
 import java.util.HashMap;
 
 @Configuration
-//@EnableTransactionManagement
-//@EnableJpaRepositories(
-//    basePackages = "com.shinasto.routingdatasource.repository",
-//    entityManagerFactoryRef = "EntityManagerFactory",
-//    transactionManagerRef = "TransactionManager")
 public class DatabaseConfig {
 
   @Bean
@@ -34,34 +29,6 @@ public class DatabaseConfig {
     HikariDataSource slave = new HikariDataSource(createSlaveDataSource());
     return new DanjiRoutingDataSource(master, slave);
   }
-
-
-//  @Bean(name = "EntityManagerFactory")
-//  @Primary
-//  public EntityManagerFactory entityManagerFactory() {
-//    LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
-//    em.setDataSource(routerDataSource());
-//    em.setPackagesToScan("com.shinasto.routingdatasource.entity");
-//    em.setPersistenceUnitName("main");
-//
-//    HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
-//    em.setJpaVendorAdapter(vendorAdapter);
-//
-//    // Hibernate 설정
-//    HashMap<String, Object> properties = new HashMap<>();
-//    properties.put("hibernate.dialect", "org.hibernate.dialect.MySQL8Dialect");
-//    em.setJpaPropertyMap(properties);
-//
-//    return em.getObject();
-//  }
-//
-//  @Primary
-//  @Bean(name = "TransactionManager")
-//  public PlatformTransactionManager transactionManager(@Qualifier("entityManagerFactory") EntityManagerFactory entityManagerFactory) {
-//    JpaTransactionManager tm = new JpaTransactionManager();
-//    tm.setEntityManagerFactory(entityManagerFactory);
-//    return tm;
-//  }
 
   @Bean
   @ConfigurationProperties(prefix = "danji.datasource.master")
